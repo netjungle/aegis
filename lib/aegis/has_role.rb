@@ -28,7 +28,7 @@ module Aegis
       send :define_method, :has_role? do |role_name|
         role_names.include?(role_name.to_s)
       end
-      
+
       Aegis::Util.define_class_method(self, :validates_role) do |*validate_options|
         validate_options = validate_options[0] || {}
 
@@ -75,14 +75,14 @@ module Aegis
           end
         end
 
-        alias_method_chain :method_missing, :aegis_permissions
+        #alias_method_chain :method_missing, :aegis_permissions
 
         send :define_method, :respond_to_with_aegis_permissions? do |symb, *args|
           include_private = args.first.nil? ? false : args.first
           respond_to_without_aegis_permissions?(symb, include_private) || (symb.to_s =~ may_pattern)
         end
 
-        alias_method_chain :respond_to?, :aegis_permissions
+        #alias_method_chain :respond_to?, :aegis_permissions
 
       end
     end
